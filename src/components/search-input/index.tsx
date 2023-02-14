@@ -9,7 +9,11 @@ interface SearchInputProps {
 
 let debounceTimer: ReturnType<typeof setTimeout> | null = null
 
-export const SearchInput = ({ placeholder, onSearch }: SearchInputProps): JSX.Element => {
+export const SearchInput = ({
+  placeholder,
+  onSearch,
+  optionsListComponent
+}: SearchInputProps): JSX.Element => {
   const clearDebounceTimer = () => debounceTimer && clearTimeout(debounceTimer)
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -34,6 +38,7 @@ export const SearchInput = ({ placeholder, onSearch }: SearchInputProps): JSX.El
         type='text'
         aria-label={placeholder}
       />
+      {optionsListComponent && optionsListComponent}
     </FormContainer>
   )
 }

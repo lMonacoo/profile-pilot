@@ -15,4 +15,8 @@ export default createGlobalStyle`
     padding: 0;
     font-family: "Inter"
   }
+
+  ul, li {
+    list-style: none;
+  }
 `

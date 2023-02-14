@@ -15,6 +15,7 @@ export const FormContainer = styled.form`
 `
 
 export const InputElement = styled.input`
+  position: relative;
   width: 100%;
   line-height: 20px;
   padding: 5px 12px;
@@ -22,21 +23,9 @@ export const InputElement = styled.input`
   color: inherit;
   background: none;
   border: 0;
-  caret: transparent block;
+  z-index: 10;
 
-  &:focus {
-    color: #c9d1d9;
-  }
-
-  &::after {
-    content: '/';
-    color: #6a737d;
-    font-family: 'Inter';
-    font-size: 14px;
-
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    transform: translateY(-50%);
+  &:focus-visible {
+    outline: -webkit-focus-ring-color auto 1px;
   }
 `

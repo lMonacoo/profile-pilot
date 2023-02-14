@@ -1,6 +1,9 @@
 import styled from 'styled-components'
 
 export const Container = styled.div`
+  position: relative;
+  padding: 0.25rem;
+
   div.spinner {
     position: relative;
     width: 40px;
