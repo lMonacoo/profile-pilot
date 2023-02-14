@@ -1,3 +1,5 @@
+import { Container } from './styles'
+
 export const Home = (): JSX.Element => {
-  return <h1>HOME</h1>
+  return <Container>HOME</Container>
 }
