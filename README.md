@@ -6,7 +6,8 @@ Projeto para pesquisar usuários do github pelo username e visualizar detalhamen
 
 ## 📚 Escolhas
 
-O projeto foi inteiramente criado do zero, por isso as escolhas não seguem um padrão arquitetural complexo, até mesmo por se tratar de uma aplicação menor feita em um período curto de tempo.
+- O projeto foi inteiramente criado do zero, por isso as escolhas não seguem um padrão arquitetural complexo, até mesmo por se tratar de uma aplicação menor feita em um período curto de tempo.
+- Utilizando semantic commits e gitflow
 
 ## 🎯 Objetivos
 
