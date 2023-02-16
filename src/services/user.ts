@@ -1,13 +1,20 @@
-import axios, { AxiosResponse } from 'axios'
-
 import { AMOUNT_OF_USERS_FETCHED_PER_REQUEST } from '~/constants'
-import { RemoteUserResultModel } from '~/models'
+import { RemoteUserDetailedResultModel, RemoteUserSummarizedResultModel } from '~/models'
 
-export const getUserList = async (term: string): Promise<RemoteUserResultModel> => {
-  const response = await axios.get<RemoteUserResultModel>(
-    `https://api.github.com/search/users?per_page=${AMOUNT_OF_USERS_FETCHED_PER_REQUEST}&page=1&q=${term}`
+import { httpClient, HttpsResponse } from './https-client'
+
+export const getUsersList = async (searchBy: string): Promise<RemoteUserSummarizedResultModel> => {
+  const response = await httpClient.get<RemoteUserSummarizedResultModel>(
+    `search/users?per_page=${AMOUNT_OF_USERS_FETCHED_PER_REQUEST}&page=1&q=${searchBy}`
   )
 
-  const { data } = response as AxiosResponse
+  const { data } = response as HttpsResponse
+  return data
+}
+
+export const getUserDetails = async (username: string): Promise<RemoteUserDetailedResultModel> => {
+  const response = await httpClient.get<RemoteUserDetailedResultModel>(`users/${username}`)
+
+  const { data } = response as HttpsResponse
   return data
 }

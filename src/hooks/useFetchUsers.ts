@@ -1,23 +1,23 @@
 import { useEffect, useState } from 'react'
 
-import { UserModel } from '~/models'
-import { getUserList } from '~/services/user'
+import { UserSummarizedModel } from '~/models'
+import { getUsersList } from '~/services/user'
 
 interface useFetchUsersReturn {
-  users: UserModel[]
+  users: UserSummarizedModel[]
   isLoading: boolean
   error: Error | null
 }
 
 export const useFetchUsers = (termToSearch: string): useFetchUsersReturn => {
-  const [users, setUsers] = useState<UserModel[]>([])
+  const [users, setUsers] = useState<UserSummarizedModel[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
 
   const fetchUsers = async (term: string) => {
     setIsLoading(true)
     try {
-      const response = await getUserList(term)
+      const response = await getUsersList(term)
       setUsers(response.items)
     } catch (error) {
       setError(error as Error)

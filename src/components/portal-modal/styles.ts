@@ -17,6 +17,7 @@ export const ContainerModal = styled.div`
 
 export const ModalStructure = styled.div`
   position: relative;
+  min-width: 150px;
 
   display: flex;
   align-items: center;

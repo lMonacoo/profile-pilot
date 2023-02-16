@@ -1,15 +1,15 @@
 import { UserSummary } from '~/components'
-import { UserModel } from '~/models'
+import { UserSummarizedModel } from '~/models'
 
 import { Item, ListContainer } from './styles'
 
 interface OptionsUserListProps {
-  users: UserModel[]
-  selectUser: (user: UserModel) => void
+  users: UserSummarizedModel[]
+  selectUser: (user: UserSummarizedModel) => void
 }
 
 export const OptionsUserList = ({ users, selectUser }: OptionsUserListProps): JSX.Element => {
-  const handleNavigateBetweenOptions = (event: React.KeyboardEvent<HTMLUListElement>) => {
+  const handleNavigateWithArrowsBetweenOptions = (event: React.KeyboardEvent<HTMLUListElement>) => {
     const { key } = event
     const focusableElements = event.currentTarget.querySelectorAll('button')
     const totalElements = focusableElements.length
@@ -31,7 +31,7 @@ export const OptionsUserList = ({ users, selectUser }: OptionsUserListProps): JS
   }
 
   return (
-    <ListContainer onKeyDown={handleNavigateBetweenOptions} data-cy='options-users-list'>
+    <ListContainer onKeyDown={handleNavigateWithArrowsBetweenOptions} data-cy='options-users-list'>
       {users.map(user => (
         <Item key={user.id}>
           <UserSummary onClick={() => selectUser(user)} {...user} />

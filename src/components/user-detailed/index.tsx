@@ -1,10 +1,11 @@
-import { UserModel } from '~/models'
+import BookIcon from '~/assets/book.svg'
+import CompanyIcon from '~/assets/company.svg'
+import GroupConnectionsIcon from '~/assets/group.svg'
+import LetterIcon from '~/assets/letter.svg'
+import LocationIcon from '~/assets/location.svg'
+import TwitterIcon from '~/assets/twitter.svg'
+import { UserDetailedModel } from '~/models'
 
-import BookIcon from '../../assets/book.svg'
-import CompanyIcon from '../../assets/company.svg'
-import GroupConnectionsIcon from '../../assets/group.svg'
-import LetterIcon from '../../assets/letter.svg'
-import LocationIcon from '../../assets/location.svg'
 import {
   Avatar,
   BioContent,
@@ -13,28 +14,31 @@ import {
   Divisor,
   IdentityContainer,
   UserDetailedContainer,
-  UserEmailContainer as UserLoneInformation
+  UserLoneAnchor,
+  UserLoneInformation
 } from './styles'
 
-export const UserDetailed = ({ user }: { user: UserModel }) => (
+export const UserDetailed = ({ user }: { user: UserDetailedModel }) => (
   <UserDetailedContainer>
     <Avatar src={user.avatar_url} alt={user.login} />
 
     <IdentityContainer>
-      <h1>{user.name}</h1>
-      <p>{user.login}</p>
+      <a href={user.html_url} target='_blank' rel='noopener noreferrer' title='Ver perfil no GitHub'>
+        <h1>{user.name}</h1>
+        <p>{user.login}</p>
+      </a>
     </IdentityContainer>
 
-    <Divisor />
-
-    {user.bio && (
-      <BioContent>
-        <h3>{user.bio}</h3>
-        <Divisor />
-      </BioContent>
-    )}
-
     <div>
+      <Divisor />
+
+      {user.bio && (
+        <BioContent>
+          <h3>{user.bio}</h3>
+          <Divisor />
+        </BioContent>
+      )}
+
       <ConnectionsContainer>
         <img src={GroupConnectionsIcon} alt='Group Connections' />
         <ConnectionLink
@@ -58,17 +62,17 @@ export const UserDetailed = ({ user }: { user: UserModel }) => (
 
       <UserLoneInformation>
         <img src={BookIcon} alt='Book Icon' />
-        <a href={`${user.html_url}?tab=repositories`} target='_blank' rel='noopener noreferrer'>
+        <UserLoneAnchor href={`${user.html_url}?tab=repositories`}>
           {user.public_repos} Repositórios públicos
-        </a>
+        </UserLoneAnchor>
       </UserLoneInformation>
 
       <UserLoneInformation>
         <img src={LetterIcon} alt='Email Icon' />
         {user.email ? (
-          <a href={`mailto:${user.email}`} title='Enviar email para o usuário'>
+          <UserLoneAnchor href={`mailto:${user.email}`} title='Enviar email para o usuário'>
             {user.email}
-          </a>
+          </UserLoneAnchor>
         ) : (
           'E-mail não disponível'
         )}
@@ -82,16 +86,25 @@ export const UserDetailed = ({ user }: { user: UserModel }) => (
       <UserLoneInformation>
         <img src={CompanyIcon} alt='Book Icon' />
         {user.company ? (
-          <a
-            href={` https://www.google.com/search?q=${user.company}`}
-            target='_blank'
-            rel='noopener noreferrer'
+          <UserLoneAnchor
+            href={`https://www.google.com/search?q=${user.company}`}
             title='Pesquisar empresa no Google'
           >
             {user.company}
-          </a>
+          </UserLoneAnchor>
         ) : (
           'Empresa não disponível'
+        )}
+      </UserLoneInformation>
+
+      <UserLoneInformation>
+        <img src={TwitterIcon} alt='Twitter Icon' />
+        {user.twitter_username ? (
+          <UserLoneAnchor href={`https://twitter.com/${user.twitter_username}`} title='Ver perfil no Twitter'>
+            {user.twitter_username}
+          </UserLoneAnchor>
+        ) : (
+          'Twitter não disponível'
         )}
       </UserLoneInformation>
     </div>

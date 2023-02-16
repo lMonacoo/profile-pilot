@@ -53,12 +53,6 @@ export const Infos = styled.div`
     color: #c9d1d9;
     font-weight: 500;
   }
-
-  span {
-    font-size: 0.75rem;
-    color: #8b949e;
-    font-weight: 400;
-  }
 `
 
 export const ProfileLink = styled.a`

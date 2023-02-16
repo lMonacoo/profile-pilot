@@ -1,10 +1,10 @@
-export interface RemoteUserResultModel {
+export interface RemoteUserSummarizedResultModel {
   incomplete_results: boolean
-  items: UserModel[]
+  items: UserSummarizedModel[]
   total_count: number
 }
 
-export interface UserModel {
+export interface UserSummarizedModel {
   login: string
   id: number
   node_id: string
@@ -23,6 +23,10 @@ export interface UserModel {
   received_events_url: string
   type: string
   site_admin: boolean
+  score: number
+}
+
+export interface UserDetailedModel extends UserSummarizedModel {
   name: string
   company: string | null
   blog: string
@@ -39,9 +43,4 @@ export interface UserModel {
   updated_at: string
 }
 
-export interface UserSummaryModel {
-  login: string
-  avatar_url: string
-  html_url: string
-  name: string
-}
+export interface RemoteUserDetailedResultModel extends UserDetailedModel {}
