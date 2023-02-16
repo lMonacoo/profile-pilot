@@ -1,38 +1,46 @@
-**DESAFIO**
-Objetivo: Criar uma aplicação web simples que permita ao usuário pesquisar
-usuários do Github usando seu nome de usuário e ver seus detalhes de perfil.
+# Search Pilot
 
-Detalhes da Tarefa
-● Use o React.js como framework frontend
-● Use typescript como linguagem de programação
-● Use Axios para se comunicar com a API do Github (https://api.github.com)
-● Escreva testes e2e utilizando Cypress
+Projeto para pesquisar usuários do github pelo username e visualizar detalhamento do mesmo.
 
-Casos de Uso
-● O usuário deve ser capaz de pesquisar usuários do Github pelo nome de usuário em
-uma barra de pesquisa.
-● Os resultados da pesquisa devem exibir uma lista de usuários que correspondem à
-consulta de pesquisa, incluindo seu nome de usuário, avatar e URL de perfil.
-● O usuário deve ser capaz de clicar em um usuário específico para ver seus detalhes
-de perfil, incluindo seu nome, nome de usuário, localização, e-mail e número de
-repositórios públicos que eles possuem.
-● Os detalhes do perfil do usuário devem ser exibidos em uma janela modal.
-● A aplicação deve ser responsiva e exibir bem tanto em dispositivos desktop quanto
-móveis.
+**(Link e stack utilizada está listada na lateral do repositório)**
 
-Requisitos
-● O código deve estar bem organizado e fácil de ler.
-● A aplicação deve ser otimizada para desempenho.
-● A interface do usuário deve ser visualmente atraente.
-● A manipulação de erros deve ser implementada (por exemplo, quando a API retorna
-um erro ou o usuário não é encontrado).
-Submissão
-● O código deve ser enviado em link para um repositório do Github.
-● Uma descrição curta das escolhas de design e arquitetura feitas deve ser incluída na
-submissão.
+## 📚 Escolhas
 
-Critérios de Avaliação:
-● Qualidade e organização do código
-● Experiência do usuário
-● Otimização de desempenho
-● Manipulação de erros
+O projeto foi inteiramente criado do zero, por isso as escolhas não seguem um padrão arquitetural complexo, até mesmo por se tratar de uma aplicação menor feita em um período curto de tempo.
+
+## 🎯 Objetivos
+
+- Criar um projeto do zero, sem auxílio de libs de componentes ou que auxiliam na performance
+- Ter a possibilidade de utilizar o sistema apenas com o teclado (setas, tab, espaço, enter)
+- Entregar um design agradável tanto para o desktop quanto para o mobile (Todo o layout foi criado do zero e inspirado nas cores e componentes do próprio Github)
+- Avaliar trade-off de tempo X entrega
+
+## 💯 Performance & Acessiblidade & User Experience
+
+- Input de pesquisa que faz um auto-search possui um debounce de 500ms para evitar chamadas desnecessárias
+- Valor do input pode ser pesquisado aguardando os 500ms depois da última digitação ou pressionando enter (onSubmit de um formulário)
+- Opções da pesquisa podem ser navegáveis com um _tab_ e depois com as setas do teclado (cima/baixo & direita/esquerda)
+- Com um "_enter_" ou _"space"_ também é possível acessar o detalhamento do perfil que está em foco nas opções apresentadas
+- Modal utilizado corretamente, com React.Portal e fazendo o gerenciamento de foco corretamente
+- É possível sair do modal com um click fora
+- É possível sair do modal com a tecla _"esc"_
+
+## 📈 Melhorias
+
+- Abstrair lógica de manipulação de eventos de teclado para custom hooks
+- Melhorar testes (teste de integração + unitários nos componentes prioritários)
+- Criar HOC para gerenciar o retorno da requisição e exibir o resultado (loading, erro, ausência de dados ou dados)
+
+## 🧪 Rodando os testes
+
+Para rodar o único teste E2E criado até o momento pode ser utilizado os comandos do `package.json` do cypress. Ou também rodando-o manualmente
+
+```bash
+  npm run cy:run-e2e
+```
+
+Ou se desejar abrir o cypress também é possível:
+
+```bash
+  npm run cy:open-e2e
+```
