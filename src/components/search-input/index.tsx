@@ -1,4 +1,5 @@
 import { DEBOUNCE_DELAY } from '~/constants/debounce'
+
 import { FormContainer, InputElement } from './styles'
 
 interface SearchInputProps {
@@ -37,6 +38,7 @@ export const SearchInput = ({
         placeholder={placeholder}
         type='text'
         aria-label={placeholder}
+        data-cy='search-input'
       />
       {optionsListComponent && optionsListComponent}
     </FormContainer>
