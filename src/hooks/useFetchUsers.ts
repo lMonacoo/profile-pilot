@@ -11,7 +11,7 @@ interface useFetchUsersReturn {
 
 export const useFetchUsers = (termToSearch: string): useFetchUsersReturn => {
   const [users, setUsers] = useState<UserModel[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(true)
   const [error, setError] = useState<Error | null>(null)
 
   const fetchUsers = async (term: string) => {
