@@ -1,7 +1,7 @@
 import { Container } from './styles'
 
 export const Loader = (): JSX.Element => (
-  <Container>
+  <Container data-cy='loader'>
     <div className='spinner'>
       <div className='bar1'></div>
       <div className='bar2'></div>

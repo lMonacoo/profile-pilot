@@ -6,9 +6,9 @@ export const Container = styled.div`
 
   div.spinner {
     position: relative;
-    width: 40px;
-    height: 40px;
-    border-radius: 10px;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.625rem;
   }
 
   div.spinner div {
