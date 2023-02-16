@@ -28,6 +28,14 @@ export const IdentityContainer = styled.div`
   margin-top: 1rem;
   font-family: 'Inter';
 
+  a {
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   h1 {
     font-size: 1.5rem;
     line-height: 1.25;
@@ -87,7 +95,7 @@ export const ConnectionLink = styled.a`
   }
 `
 
-export const UserEmailContainer = styled.div`
+export const UserLoneInformation = styled.div`
   margin-top: 1rem;
   display: flex;
   align-items: center;
@@ -96,16 +104,19 @@ export const UserEmailContainer = styled.div`
   font-family: 'Inter';
   color: #c9d1d9;
   font-size: 0.875rem;
+`
 
-  a {
-    font-family: 'Inter';
-    color: #c9d1d9;
-    font-size: 0.875rem;
-    text-decoration: none;
+export const UserLoneAnchor = styled.a.attrs({
+  target: '_blank',
+  rel: 'noopener noreferrer'
+})`
+  font-family: 'Inter';
+  color: #c9d1d9;
+  font-size: 0.875rem;
+  text-decoration: none;
 
-    &:hover {
-      text-decoration: underline;
-      color: #8b949e;
-    }
+  &:hover {
+    text-decoration: underline;
+    color: #8b949e;
   }
 `

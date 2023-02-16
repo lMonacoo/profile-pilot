@@ -27,24 +27,21 @@ export const PortalModal = ({ closeModal, showModal, children }: PortalModalProp
     [closeModal]
   )
 
-  const tabKeyFocusElement = useCallback(
-    (event: KeyboardEvent, firstAndLastElement: HTMLElement[]) => {
-      if (event.key !== 'Tab') return
+  const tabKeyFocusElement = useCallback((event: KeyboardEvent, firstAndLastElement: HTMLElement[]) => {
+    if (event.key !== 'Tab') return
 
-      const [firstFocusableElement, lastFocusableElement] = firstAndLastElement
+    const [firstFocusableElement, lastFocusableElement] = firstAndLastElement
 
-      if (!event.shiftKey && document.activeElement === lastFocusableElement) {
-        firstFocusableElement.focus()
-        event.preventDefault()
-        return
-      }
-      if (event.shiftKey && document.activeElement === firstFocusableElement) {
-        lastFocusableElement.focus()
-        event.preventDefault()
-      }
-    },
-    []
-  )
+    if (!event.shiftKey && document.activeElement === lastFocusableElement) {
+      firstFocusableElement.focus()
+      event.preventDefault()
+      return
+    }
+    if (event.shiftKey && document.activeElement === firstFocusableElement) {
+      lastFocusableElement.focus()
+      event.preventDefault()
+    }
+  }, [])
 
   useEffect(() => {
     if (!modalRef.current) return
