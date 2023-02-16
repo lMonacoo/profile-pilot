@@ -12,7 +12,7 @@ describe('E2E', () => {
     cy.title().should('include', 'Profile Pilot')
   })
 
-  it('Should fetch users correctly', () => {
+  it('Should fetch users list correctly', () => {
     cy.request('https://api.github.com/search/users?per_page=5&page=1&q=lmonacoo').as('users')
 
     cy.get('@users').its('body').should('have.property', 'items').and('have.length', 1)
@@ -24,9 +24,7 @@ describe('E2E', () => {
     it('Should show all users searchable with link to their github page using keyboard', () => {
       cy.intercept('https://api.github.com/search/*').as('getUsers')
 
-      cy.get('@searchInput')
-        .should('have.attr', 'placeholder', 'Search a user')
-        .and('not.have.focus')
+      cy.get('@searchInput').should('have.attr', 'placeholder', 'Search a user').and('not.have.focus')
       cy.get('@searchInput').focus().should('have.focus').and('have.value', '')
 
       cy.get('@searchInput').type('aa').should('have.value', 'aa')
@@ -85,6 +83,7 @@ describe('E2E', () => {
   describe('Inspecting user profile', () => {
     it('Should show user profile when clicking on user', () => {
       cy.intercept('https://api.github.com/search/*').as('getUsers')
+      cy.intercept('https://api.github.com/users/*').as('getUserDetails')
 
       cy.get('@searchInput').type('lmonacoo')
 
@@ -95,16 +94,53 @@ describe('E2E', () => {
       // select first user from list with enter key
       cy.focused().type('{enter}')
 
+      // show loader
+      cy.get('[data-cy="loader"]').as('loader').should('exist').and('be.visible')
+
+      // wait for api response
+      cy.wait('@getUserDetails')
+
       cy.get('[data-cy="modal"]').should('exist').and('be.visible').as('modal')
       cy.get('@modal').find('a').contains('Repositórios públicos').should('exist').and('be.visible')
       cy.get('@modal').find('a').contains('followers').should('exist').and('be.visible')
       cy.get('@modal').find('a').contains('following').should('exist').and('be.visible')
       cy.get('@modal').find('div').contains('E-mail').should('exist').and('be.visible')
       cy.get('@modal').find('div').contains('Localização').should('exist').and('be.visible')
+      cy.get('@modal').find('div').contains('Twitter').should('exist').and('be.visible')
 
       // Closing modal
       cy.get('@modal').find('button').first().should('exist').and('be.visible').click()
       cy.get('@modal').should('not.exist')
+    })
+
+    it("Should render empty state when user doesn't exist", () => {
+      cy.intercept('https://api.github.com/search/*').as('getUsers')
+      cy.intercept('GET', 'https://api.github.com/users/*', { body: {} }).as('getUserDetails')
+
+      cy.get('@searchInput').type('lmonacoo')
+
+      cy.wait('@getUsers')
+      cy.get('[data-cy="options-users-list"]').as('usersList').should('exist').and('be.visible')
+      cy.get('@searchInput').tab()
+
+      // select first user from list with click
+      cy.focused().click()
+
+      cy.get('[data-cy="not-found-message"]').should('exist').and('be.visible')
+    })
+
+    it('Should render error message when api request fails', () => {
+      cy.intercept('https://api.github.com/search/*').as('getUsers')
+      cy.intercept('GET', 'https://api.github.com/users/*', { forceNetworkError: true }).as('getUserDetails')
+
+      cy.get('@searchInput').type('lmonacoo')
+
+      cy.wait('@getUsers')
+      cy.get('[data-cy="options-users-list"]').as('usersList').should('exist').and('be.visible')
+      cy.get('@searchInput').tab()
+      cy.focused().click()
+
+      cy.get('[data-cy="error-message"]').should('exist').and('be.visible')
     })
   })
 })
